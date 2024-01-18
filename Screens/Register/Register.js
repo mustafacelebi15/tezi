@@ -121,7 +121,7 @@ return;
         <TouchableOpacity style={styles.button} onPress={handleImagePick}>
               <Text style={styles.buttonText}>Profil Resmi Seçiniz</Text>
     </TouchableOpacity>
-            <Button title="Kayıt ol" onPress={handleSubmit}/>
+            <Button title="Kaydol" onPress={handleSubmit}/>
         </View>
         </View>
         </SafeAreaView>

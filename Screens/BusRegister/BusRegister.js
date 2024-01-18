@@ -49,7 +49,7 @@ return;
     categoryId: parseInt(selectedCategory, 10),
     userName: route.params.businessData.userName,
     businessName: BusinessName,
-    busiessPhoneNumber: PhoneNumber,
+    businessPhoneNumber: PhoneNumber,
     businessAdress: Adress,
     businessImage: profileImage,
     businessMinPrice: MinPrice,
@@ -103,10 +103,6 @@ return;
     
     
     const uploadImage = async () => {
-      if (!selectedImage) {
-        Alert.alert('Please select an image first');
-        return;
-      }
     
       console.log("Merhaba");
     
@@ -169,7 +165,7 @@ return;
         <TouchableOpacity style={styles.button} onPress={handleImagePick}>
               <Text style={styles.buttonText}>Profil Resmi Seçiniz</Text>
     </TouchableOpacity>
-          <Button title="Kayıt ol" onPress={handleSubmit}/>
+          <Button title="Kaydol" onPress={handleSubmit}/>
         </View>
         </View>
         </SafeAreaView>

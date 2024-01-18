@@ -5,7 +5,7 @@ import COLORS from "../../constants/colors";
 export default StyleSheet.create ({
     container:{
         flex:1,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.secondary,
     },
     title: {
         fontSize:40,

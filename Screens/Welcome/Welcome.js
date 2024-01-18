@@ -21,7 +21,7 @@ export default function Welcome({navigation}) {
       <View style={styles.body_container}>
         <Text style={styles.title}>Reasy</Text>
        </View>
-       <Button title="Kayıt Ol" onPress={GoToSignUP}/>
+       <Button title="Kaydol" onPress={GoToSignUP}/>
        <View style={{marginVertical:10}}></View>
       <Button title="Giriş Yap" onPress={GoToLogin}/>
     </View>

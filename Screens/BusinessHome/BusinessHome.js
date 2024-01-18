@@ -106,7 +106,7 @@ fetchData();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Reservation Details</Text>
+      <Text style={styles.header}>Rezervasyon İstekleri</Text>
 
       <FlatList
         data={reservationData}
