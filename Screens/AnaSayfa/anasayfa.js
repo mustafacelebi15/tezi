@@ -9,15 +9,22 @@ const apiUrl = 'http://mcelebi44-001-site1.btempurl.com/Business/getall';
 
 const BusinessListScreen = ({route, navigation}) => {
   const [businessData, setBusinessData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null); // Varsayılan olarak "Tüm Kategoriler"
-
-  const categories = [{id: 1, name:'Halı Saha'},
-  {id:2, name: 'Düğün Salonu'},
-  {id:3, name: 'Berber'},
-  {id:4, name: 'Restoran'},
-  {id:5, name: 'Psikolog Ofisi'},
-  {id:6, name: 'İnternet Cafe'}, 
-  {id:7, name: 'Güzellik Salonu'}];
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () =>{
+      try{
+        const categoriesResponse = await axios.get('http://mcelebi44-001-site1.btempurl.com/Category/getall');
+        console.log
+        setCategories(categoriesResponse.data.data);
+      }
+      catch(error){
+        console.error('Veri getirme hatası:', error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   const{userName}= route.params;
   console.log(userName);
@@ -60,19 +67,37 @@ const BusinessListScreen = ({route, navigation}) => {
   const navigateToDetail = (item) => {
     navigation.navigate('Detail', {businessItem:item, cusUserName:userName});
   };
+  const LogOut = () => {
+    navigation.navigate('Login')
+  };
+
+  const Res = () => {
+    navigation.navigate('CusRes',userName);
+  };
+
 
   return (
     <View style={styles.container}>
+       <View style={styles.headerButtonsContainer}>
+        <TouchableOpacity style={styles.headerButton} onPress={Res}>
+          <Text style={styles.headerButtonText}>Rezervasyonlarım</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton} onPress={LogOut}>
+          <Text style={styles.headerButtonText}>Çıkış Yap</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={selectedCategory}
-          onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-        >
-          <Picker.Item label="Tüm Kategoriler" value={null} />
-          {categories.map((category, index) => (
-            <Picker.Item key={category.id} label={category.name} value={category.id}/>
-          ))}
-        </Picker>
+      <Picker
+    style={styles.picker}
+    selectedValue={selectedCategory}
+    onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+  >
+    <Picker.Item label="Seçiniz" value={null} />
+    {categories.map((category, index) => (
+      <Picker.Item key={category.categoryId} label={category.categoryName} value={category.categoryId} />
+    ))}
+  </Picker>
       </View>
       <FlatList
         data={filteredBusinessData}

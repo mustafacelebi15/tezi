@@ -16,6 +16,7 @@ const Register = ({route, navigation}) => {
   const [PhoneNumber, setPhoneNumber] = useState(null);
   const [Adress, setAdress] = useState(null);
   const [Description, setDescription] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
 
   function handleSubmit() {
@@ -63,13 +64,47 @@ return;
         },
       };
   
-      launchImageLibrary(options, (response) => {
-        console.log(response,"sasas")
-        console.log(response.assets[0].uri,"test")
-        if (response.assets[0].uri) {
-          setProfileImage(response.assets[0].uri);
+      launchImageLibrary(options, async (response) => {
+        if (response.assets && response.assets.length > 0) {
+          const fileUri = response.assets[0].uri;
+          const fileName = "Images/" + fileUri.split('/').pop();
+          console.log(response);
+          setSelectedImage(response);
+          console.log(selectedImage);
+    
+          await uploadImage();
         }
       });
+      const uploadImage = async () => {
+        if (!selectedImage) {
+          Alert.alert('Please select an image first');
+          return;
+        }
+      
+        console.log("Merhaba");
+      
+        const formData = new FormData();
+        formData.append('file', {
+          uri: selectedImage.assets[0].uri,
+          type: selectedImage.assets[0].type,
+          name: selectedImage.assets[0].fileName,
+        });
+      
+        try {
+          const response = await axios.post('https://yavuz45-001-site1.htempurl.com/api/Upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+      
+          console.log('Image uploaded successfully:', response.data);
+          setProfileImage(response.data.dbPath);
+          
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          // Handle error as needed
+        }
+      };
     };
 
 
@@ -83,7 +118,7 @@ return;
         <TextInput style={styles.input} placeholder="Kendinizi kısaca tanıtınız." value={Description} onChangeText={(text) => setDescription(text)} />      
         <View style={styles.ButtonContainer}>
         {profileImage && (
-  <Image source={{ uri: profileImage }} style={styles.profileImage} />
+  <Image source={{ uri: "http://mcelebi44-001-site1.btempurl.com/"+profileImage }} style={styles.profileImage} />
 )}    
         <TouchableOpacity style={styles.button} onPress={handleImagePick}>
               <Text style={styles.buttonText}>Profil Resmi Seçiniz</Text>

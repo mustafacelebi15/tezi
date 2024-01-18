@@ -52,7 +52,7 @@ export default styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-between",
       borderTopWidth: 1,
-      borderColor: "black", // Sınır rengi
+      borderColor: "black", 
       paddingTop: 8,
       marginTop: 8,
     },
@@ -66,5 +66,21 @@ export default styles = StyleSheet.create({
       borderRadius: 8,
       margin: 16,
       padding: 16,
+    },
+    headerButtonsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      marginBottom: 10,
+    },
+    headerButton: {
+      backgroundColor: COLORS.primary,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 8,
+      marginLeft: 10,
+    },
+    headerButtonText: {
+      color: '#fff',
+      fontWeight: 'bold',
     },
   });

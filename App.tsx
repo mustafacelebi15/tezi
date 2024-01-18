@@ -11,6 +11,8 @@ import BusRegisterScreen from './Screens/BusRegister';
 import AnaSayfa from './Screens/AnaSayfa';
 import Detail from './Screens/Detail';
 import ReservationAct from './Screens/ReservationAct';
+import BusinessHome from './Screens/BusinessHome';
+import CusRes from './Screens/CusRes';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +28,8 @@ export default function App() {
         <Stack.Screen name="AnaSayfa" component={AnaSayfa} options={{headerShown:false}}/>
         <Stack.Screen name="Detail" component={Detail} options={{headerShown:false}}/>
         <Stack.Screen name="ReservationAct" component={ReservationAct} options={{headerShown:false}}/>
+        <Stack.Screen name="BusinessHome" component={BusinessHome} options={{headerShown:false}}/>
+        <Stack.Screen name="CusRes" component={CusRes} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

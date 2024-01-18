@@ -46,7 +46,7 @@ return;
       const updateKosul = response.data.userType;
       setKosul(updateKosul);
       if(updateKosul === 'business'){
-        navigation.navigate('Login');
+        navigation.navigate('BusinessHome', loginData);
       }
       else{
         navigation.navigate('AnaSayfa', loginData);

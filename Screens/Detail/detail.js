@@ -23,13 +23,13 @@ console.log(cusUserName);
         <Text style={styles.businessDescription}>{businessItem.businessDescription}</Text>
         <View style={styles.separator} />
         <View style={styles.priceContainer}>
-          <Text style={styles.priceText}>Min Price: {businessItem.businessMinPrice}₺</Text>
-          <Text style={styles.priceText}>Max Price: {businessItem.businessMaxPrice}₺</Text>
+          <Text style={styles.priceText}>Minimum Ücret: {businessItem.businessMinPrice}₺</Text>
+          <Text style={styles.priceText}>Maksimum Ücret: {businessItem.businessMaxPrice}₺</Text>
         </View>
         <View style={styles.separator} />
-        <Text style={styles.additionalInfo}>Phone Number: {businessItem.businessPhoneNumber}</Text>
+        <Text style={styles.additionalInfo}>Telefon Numarası: {businessItem.businessPhoneNumber}</Text>
         <View style={styles.separator} />
-        <Text style={styles.additionalInfo}>Address: {businessItem.businessAdress}</Text>
+        <Text style={styles.additionalInfo}>Adres: {businessItem.businessAdress}</Text>
         <View style={styles.ButtonT}>
         <Button title="Rezervasyon Yap" onPress={ReservationAct}/>
         </View>

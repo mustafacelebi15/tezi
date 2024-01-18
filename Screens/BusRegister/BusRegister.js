@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Text, SafeAreaView, View, TextInput, Alert, TouchableOpacity,Image, ScrollView} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -22,14 +22,22 @@ const BusRegister = ({route, navigation}) => {
   const [SDescription, setSDescription] = useState(null);
   const [MinPrice, setMinPrice] = useState(0);
   const [MaxPrice, setMaxPrice] = useState(0) 
-
-  const categories = [{id: 1, name:'Halı Saha'},
-  {id:2, name: 'Düğün Salonu'},
-  {id:3, name: 'Berber'},
-  {id:4, name: 'Restoran'},
-  {id:5, name: 'Psikolog Ofisi'},
-  {id:6, name: 'İnternet Cafe'}, 
-  {id:7, name: 'Güzellik Salonu'}];
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [categories, setCategories] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () =>{
+      try{
+        const categoriesResponse = await axios.get('http://mcelebi44-001-site1.btempurl.com/Category/getall');
+        console.log
+        setCategories(categoriesResponse.data.data);
+      }
+      catch(error){
+        console.error('Veri getirme hatası:', error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   function handleSubmit() {
     if(!PhoneNumber || !Adress || !Description || !profileImage){
@@ -71,7 +79,6 @@ return;
     };
 
   
-      
     const handleImagePick = () => {
       const options = {
         title: 'Select Profile Image',
@@ -80,15 +87,53 @@ return;
           path: 'images',
         },
       };
-  
-      launchImageLibrary(options, (response) => {
-        console.log(response,"sasas")
-        console.log(response.assets[0].uri,"test")
-        if (response.assets[0].uri) {
-          setProfileImage(response.assets[0].uri);
+    
+      launchImageLibrary(options, async (response) => {
+        if (response.assets && response.assets.length > 0) {
+          const fileUri = response.assets[0].uri;
+          const fileName = "Images/" + fileUri.split('/').pop();
+          console.log(response);
+          setSelectedImage(response);
+          console.log(selectedImage);
+    
+
+          await uploadImage();
         }
       });
+    
+    
+    const uploadImage = async () => {
+      if (!selectedImage) {
+        Alert.alert('Please select an image first');
+        return;
+      }
+    
+      console.log("Merhaba");
+    
+      const formData = new FormData();
+      formData.append('file', {
+        uri: selectedImage.assets[0].uri,
+        type: selectedImage.assets[0].type,
+        name: selectedImage.assets[0].fileName,
+      });
+    
+      try {
+        const response = await axios.post('https://yavuz45-001-site1.htempurl.com/api/Upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+    
+        console.log('Image uploaded successfully:', response.data);
+        setProfileImage(response.data.dbPath);
+        
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        // Handle error as needed
+      }
     };
+  };
+    
 
 
     return(
@@ -108,10 +153,11 @@ return;
     onValueChange={(itemValue) => setSelectedCategory(itemValue)}
   >
     <Picker.Item label="Seçiniz" value={null} />
-    {categories.map((category) => (
-      <Picker.Item key={category.id} label={category.name} value={category.id} />
+    {categories.map((category, index) => (
+      <Picker.Item key={category.categoryId} label={category.categoryName} value={category.categoryId} />
     ))}
   </Picker>
+ 
           </View>
         <TextInput style={styles.input} placeholder="İşletmenizi kısaca açıklayınız." value={SDescription} onChangeText={(text) => setSDescription(text)} />
         <TextInput style={styles.input} placeholder="Minimum Ücret." value={MinPrice} onChangeText={(text) => setMinPrice(text)} />
@@ -119,13 +165,12 @@ return;
         <TextInput style={styles.input} placeholder="İşletme Açıklaması." value={Description} onChangeText={(text) => setDescription(text)} />      
         <View style={styles.ButtonContainer}>
         {profileImage && (
-  <Image source={{ uri: profileImage }} style={styles.profileImage} />
+  <Image source={{ uri: "http://mcelebi44-001-site1.btempurl.com/"+profileImage }} style={styles.profileImage} />
 )}    
         <TouchableOpacity style={styles.button} onPress={handleImagePick}>
               <Text style={styles.buttonText}>Profil Resmi Seçiniz</Text>
     </TouchableOpacity>
-          {/* <Button title="Kayıt ol" onPress={handleSubmit}/> */}
-          <UploadsComponent></UploadsComponent>
+          <Button title="Kayıt ol" onPress={handleSubmit}/>
         </View>
         </View>
         </SafeAreaView>
