@@ -53,8 +53,8 @@ return;
       }
       })
       .catch(error => {
-        console.error('Kayıt hatası:', error);
         if (error.response) {
+          Alert.alert(error.response.data);
           console.error('Yanıt verisi:', error.response.data);
           console.error('Yanıt durumu:', error.response.status);
           console.error('Yanıt başlıkları:', error.response.headers);

@@ -129,7 +129,6 @@ return;
         
       } catch (error) {
         console.error('Error uploading image:', error);
-        // Handle error as needed
       }
     };
   };

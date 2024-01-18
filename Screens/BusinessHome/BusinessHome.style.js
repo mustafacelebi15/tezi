@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       borderRadius: 8,
       borderWidth: 3,
-      borderColor: COLORS.primary, // Border rengi
-      alignItems: 'center', // Kart içeriğini yatayda ortala
+      borderColor: COLORS.primary, 
+      alignItems: 'center', 
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,

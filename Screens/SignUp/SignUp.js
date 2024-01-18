@@ -38,8 +38,8 @@ return;
       })
       .catch(error => {
         console.error('Kayıt hatası:', error);
-        // Eğer varsa, yanıta dayalı olarak daha spesifik hata işleme ekleyin
         if (error.response) {
+          Alert.alert('Kayıtlı Kullanıcı Adı');
           console.error('Yanıt verisi:', error.response.data);
           console.error('Yanıt durumu:', error.response.status);
           console.error('Yanıt başlıkları:', error.response.headers);
@@ -65,8 +65,9 @@ return;
     })
     .catch(error => {
       console.error('Kayıt hatası:', error);
-      // Eğer varsa, yanıta dayalı olarak daha spesifik hata işleme ekleyin
+
       if (error.response) {
+        Alert.alert('Kayıtlı Kullanıcı Adı');
         console.error('Yanıt verisi:', error.response.data);
         console.error('Yanıt durumu:', error.response.status);
         console.error('Yanıt başlıkları:', error.response.headers);

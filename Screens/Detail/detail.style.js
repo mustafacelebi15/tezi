@@ -10,8 +10,8 @@ export default styles = StyleSheet.create({
       width: "100%",
       height: 200,
       resizeMode: "cover",
-      borderWidth: 2, // Sınır genişliği
-      borderColor: "black", // Sınır rengi
+      borderWidth: 2,
+      borderColor: "black", 
     },
     businessInfo: {
       padding: 16,

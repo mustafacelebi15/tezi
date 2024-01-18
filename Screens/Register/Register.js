@@ -40,7 +40,6 @@ return;
     })
     .catch(error => {
       console.error('Kayıt hatası:', error);
-      // Eğer varsa, yanıta dayalı olarak daha spesifik hata işleme ekleyin
       if (error.response) {
         console.error('Yanıt verisi:', error.response.data);
         console.error('Yanıt durumu:', error.response.status);
@@ -102,7 +101,6 @@ return;
           
         } catch (error) {
           console.error('Error uploading image:', error);
-          // Handle error as needed
         }
       };
     };
