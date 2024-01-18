@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
 import Button from "../../Components/Button";
 import styles from "./detail.style";
+import HTMLView from 'react-native-htmlview';
 
 const BusinessDetailScreen = ({ route, navigation}) => {
   const {businessItem,cusUserName} = route.params;
@@ -12,6 +13,7 @@ console.log(cusUserName);
   function ReservationAct() {
     navigation.navigate("ReservationAct",{businessData:businessItem, cusUserName:cusUserName})
   }
+  const description= businessItem.businessDescription;
 
 
   return (
@@ -20,7 +22,7 @@ console.log(cusUserName);
       <View style={styles.businessInfo}>
         <Text style={styles.businessName}>{businessItem.businessName}</Text>
         <View style={styles.separator} />
-        <Text style={styles.businessDescription}>{businessItem.businessDescription}</Text>
+        <HTMLView value={description} />
         <View style={styles.separator} />
         <View style={styles.priceContainer}>
           <Text style={styles.priceText}>Minimum Ücret: {businessItem.businessMinPrice}₺</Text>
